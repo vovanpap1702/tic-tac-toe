@@ -32,9 +32,21 @@ class TicTacToe {
             }
             for(var i=0;i<3;i++)
             {
+                for(var j=0;j<3;j++)
+                {
+                    console.log(this.field[i][j]);
+                    console.log("\t");
+                }
+                console.log('\n');
+            }
+            for(var i=0;i<3;i++)
+            {
                 if( this.field[i][0]===this.field[i][1]&&
                     this.field[i][1]===this.field[i][2]&&
-                    this.field[i][0]===this.field[i][2])
+                    this.field[i][0]===this.field[i][2]&&
+                    this.field[i][0]!==undefined&&
+                    this.field[i][1]!==undefined&&
+                    this.field[i][2]!==undefined)
                 {
                     this.winner=this.field[i][0];
                     this.end=true;
@@ -42,7 +54,10 @@ class TicTacToe {
                 }
                 if( this.field[0][i]===this.field[1][i]&&
                     this.field[1][i]===this.field[2][i]&&
-                    this.field[0][i]===this.field[2][i])
+                    this.field[0][i]===this.field[2][i]&&
+                    this.field[0][i]!==undefined&&
+                    this.field[1][i]!==undefined&&
+                    this.field[2][i]!==undefined)
                 {
                     this.winner=this.field[0][i];
                     this.end=true;
@@ -51,14 +66,20 @@ class TicTacToe {
             }
             if( this.field[0][0]===this.field[1][1]&&
                 this.field[1][1]===this.field[2][2]&&
-                this.field[0][0]===this.field[2][2])
+                this.field[0][0]===this.field[2][2]&&
+                this.field[0][0]!==undefined&&
+                this.field[1][1]!==undefined&&
+                this.field[2][2]!==undefined)
             {
                 this.winner=this.field[1][1];
                 this.end=true;
             }
             if( this.field[2][0]===this.field[1][1]&&
                 this.field[1][1]===this.field[0][2]&&
-                this.field[0][2]===this.field[2][0])
+                this.field[0][2]===this.field[2][0]&&
+                this.field[0][2]!==undefined&&
+                this.field[1][1]!==undefined&&
+                this.field[2][0]!==undefined)
             {
                 this.winner=this.field[1][1];
                 this.end=true;
@@ -86,11 +107,11 @@ class TicTacToe {
 
     }
     isDraw() {
-        return this.winner===''&&noMoreTurns()?true:false;
+        return this.winner===''&&(this.noMoreTurns())?true:false;
     }
 
     getFieldValue(rowIndex, colIndex) {
-        return this.field[rowIndex,colIndex]===1?null:this.field[rowIndex,colIndex];
+        return this.field[rowIndex][colIndex]===undefined?null:this.field[rowIndex][colIndex];
     }
 }
 
