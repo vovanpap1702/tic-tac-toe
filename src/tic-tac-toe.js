@@ -5,7 +5,10 @@ class TicTacToe {
         this.queue="x";
         this.winner='';
         this.end=false;
-        this.field=[[1,1,1],[1,1,1],[1,1,1]];
+        this.field=[[undefined,undefined,undefined],
+            [undefined,undefined,undefined],
+            [undefined,undefined,undefined]
+        ];
 
     }
 
@@ -15,62 +18,57 @@ class TicTacToe {
     }
 
     nextTurn(rowIndex, columnIndex) {
-        if(this.field[rowIndex,columnIndex]===1)
+        if(this.field[rowIndex][columnIndex]==undefined)
         {
-            this.field[rowIndex,columnIndex]=this.queue;
-            changeSymbol();
+            this.field[rowIndex][columnIndex]=this.queue;
+            this.count++;
+            if(this.queue==="x")
+            {
+                this.queue="o";
+            }
+            else
+            {
+                this.queue="x";
+            }
+            for(var i=0;i<3;i++)
+            {
+                if( this.field[i][0]===this.field[i][1]&&
+                    this.field[i][1]===this.field[i][2]&&
+                    this.field[i][0]===this.field[i][2])
+                {
+                    this.winner=this.field[i][0];
+                    this.end=true;
+                    break;
+                }
+                if( this.field[0][i]===this.field[1][i]&&
+                    this.field[1][i]===this.field[2][i]&&
+                    this.field[0][i]===this.field[2][i])
+                {
+                    this.winner=this.field[0][i];
+                    this.end=true;
+                    break;
+                }
+            }
+            if( this.field[0][0]===this.field[1][1]&&
+                this.field[1][1]===this.field[2][2]&&
+                this.field[0][0]===this.field[2][2])
+            {
+                this.winner=this.field[1][1];
+                this.end=true;
+            }
+            if( this.field[2][0]===this.field[1][1]&&
+                this.field[1][1]===this.field[0][2]&&
+                this.field[0][2]===this.field[2][0])
+            {
+                this.winner=this.field[1][1];
+                this.end=true;
+            }
+
         }
         else
         {
             return "this place is taken";
         }
-
-    }
-    changeSymbol()
-    {
-        this.count++;
-        if(this.queue==="x")
-        {
-            this.queue="o";
-        }
-        else
-        {
-            this.queue="x";
-        }
-        for(var i=0;i<3;i++)
-        {
-            if( this.field[i][1]===this.field[i][2]&&
-                this.field[i][2]===this.field[i][3]&&
-                this.field[i][1]===this.field[i][3])
-            {
-                this.winner=this.field[i][1];
-                this.end=true;
-                break;
-            }
-            if( this.field[1][i]===this.field[2][i]&&
-                this.field[2][i]===this.field[3][i]&&
-                this.field[1][i]===this.field[3][i])
-            {
-                this.winner=this.field[i][1];
-                this.end=true;
-                break;
-            }
-        }
-        if( this.field[1][1]===this.field[2][2]&&
-            this.field[2][2]===this.field[3][3]&&
-            this.field[1][1]===this.field[3][3])
-        {
-            this.winner=this.field[2][2];
-            this.end=true;
-        }
-        if( this.field[3][1]===this.field[2][2]&&
-            this.field[2][2]===this.field[1][3]&&
-            this.field[1][3]===this.field[3][1])
-        {
-            this.winner=this.field[2][2];
-            this.end=true;
-        }
-
 
     }
 
@@ -93,6 +91,7 @@ class TicTacToe {
 
     getFieldValue(rowIndex, colIndex) {
         return this.field[rowIndex,colIndex]===1?null:this.field[rowIndex,colIndex];
-    }}
+    }
+}
 
 module.exports = TicTacToe;
